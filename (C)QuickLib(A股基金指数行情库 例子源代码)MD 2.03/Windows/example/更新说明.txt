@@ -1,0 +1,55 @@
+2016.12.21
+QuickLib(A股行情库)2.03
+增加回调函数
+
+2016.12.1
+QuickLib(A股行情库)2.02
+添加了2个方法：
+获得API版本号 GetApiVersion()
+注册服务器地址 RegisterFront()
+删除了OnTick方法， 行情Tick数据的回调全部在OnCmd通过字典映射到到OnRspTick()
+删除了GetTickInstrument()和GetUnGetTickSize()方法
+完善了内部互斥锁的问题，提高了效率
+简化了例子
+
+2016.11.26
+QuickLib(A股行情库)2.01
+修复缓冲区BUG
+
+2016.11.25
+QuickLib(A股行情库)2.00
+增加大量回调函数
+
+2016.11.17
+QuickLib(A股行情库)1.22
+增加了 SaveTick(i)方法保存行情数据至csv文件
+
+2016.11.16
+QuickLib(A股行情库)1.21C正式版
+例子Python代码部分加入了合约名为"None"跳出循环的判断
+
+2016.11.15
+QuickLib(A股行情库)1.21B正式版
+增加了订阅打印行情例子并提交给多进程计算策略(线程池)调用的例子
+例子创建多线程处理策略逻辑时时，会对Market库重复初始化做处理，需要Python部分代码做自行修改（例如将初始化改为局部变量），否则market建立多线程时
+将每一个线程都讲重复初始化1次行情。
+
+
+
+2016.11.14
+QuickLib(A股行情库)1.21
+增加Tick事件驱动的方法，更加高效
+大于3秒1次TICK
+
+2016.10.28
+QuickLib(A股行情库)1.20
+可自由订阅行情
+
+2016.10.26
+QuickLib(A股行情库)1.07
+
+A股行情通过改配置文件Instrument.int自由订阅，为减缓服务器压力，最多可以订阅600个品种，需要更多品种请联系群主
+
+Python部分代码没有整理，但库的功能已经实现。
+
+TradeTime.ini、Instrument.ini、QuickLibMD.ini、QuickLibTD.ini不使用，但本版本不要删除

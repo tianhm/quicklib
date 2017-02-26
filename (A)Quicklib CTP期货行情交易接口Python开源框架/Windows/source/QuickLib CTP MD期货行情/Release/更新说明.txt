@@ -1,0 +1,13 @@
+QuickLib期货行情2.06 
+（1）本例子增加了5个回调
+MD_OnUserLogin
+MD_OnFrontConnected
+MD_OnFrontDisconnected
+MD_OnSubMarketData
+MD_OnUnSubMarketData
+
+（2）不再使用参数设置打印行情，请改用在回调中打印数据
+Subcribe系列（Subcribe、Subcribe1~Subcribe8）的最后1个参数均取消
+ReadInstrumentIni()参数取消
+
+其他7个例子见QucikLib期货行情交易版本 2.05

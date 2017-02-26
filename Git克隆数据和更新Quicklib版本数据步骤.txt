@@ -1,0 +1,40 @@
+从Quicklib官网  http://www.quicklib.cn   可下载编译好的库、例子和工具
+
+下载Quicklib可以在https://git.oschina.net/quicklib/Quicklib
+直接下载ZIP压缩包
+另一个方法是用GIT下载和更新（推荐）
+
+一、用GIT下载Quicklib到本地硬盘目录步骤
+
+1.在开源中国注册账户
+https://git.oschina.net/
+
+2.安装Git软件
+
+3.利用Git Gui生成SSH密钥
+点击Git Gui中 菜单HELP->Show SSH Key
+如果没有密钥，则显示是空的，点击"Generate Key"按钮，会生成密钥，
+再点击“copy To Clipboard”，将密钥赋值到粘贴板
+
+4.登录开源中国 ->页面上方“导航个人资料”人像图标 ->点击左边导航“SSH公钥”->
+在网页表单添加该公钥，并确定。
+
+5.打开Git Gui,选择"Repository"->"Clone"->
+
+在"Source Location"粘贴SSH地址git@git.oschina.net:quicklib/Quicklib.git
+在"Target Directory"->点击Browse后选择本地硬盘目录，注意选择后还需要在路径添加一个新的目录名，否则提示
+该目录已存在的英文。例如Browse后选择E:\Git，还要添加后改成E:\Git\quicklibfile类似这样，然后点Clone。quicklibfile会自动新建的，如果该目录已经存在，新建会失败。
+就开始启动一个对话框，显示Working状态
+一段时间后，可能10分钟以后，会将远程数据同步到本地的E:\Git\quicklibfile目录里。
+
+二、同步更新数据步骤
+请确保，已经在开源中国注册账户，并在账户添加了自己的SSH KEY,若没有此步骤，将无法Fetch更新
+1.启动GIT Gui后，点击目录链接 E:\Git\quicklibfile 会打开一个对话框
+2.点击菜单 "Remote(远程)"->"Add"
+弹出一个对话框，在对话框中Name改一个名称，例如"Quicklib"，
+在Location（路径）添加SSH网路地址： git@git.oschina.net:quicklib/Quicklib.git
+如果已经Clone过，则E:\Git\quicklibfile 有内容，此时选择Fetch Immediately，点击Add
+如果未Clone过，则选Initialize Remote Repository and Push.点击Add.
+
+3.点击"Remote"->Fetch From->"Quicklib"后，启动一个对话框，显示Working.会将远程和本地不同或缺失的文件进行同步，一段时间后显示Scuess则表示本地硬盘上的文件已经更新到最新版本。
+

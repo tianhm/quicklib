@@ -1,0 +1,4 @@
+（1）example文件夹内是已经编译好的库和完整的例子，Python例子基于Python2.7.6,可能同时需要安装py2exe、python xy,wingide、py QT(均需对应python2.7.6的版本，群或官方网站会提供下载),可以自行修改为Python3.0以上版本，库DLL文件理论上都可以支持。
+（2）source文件夹内是C++ DLL的底层源代码（请在VisualStudio2015以上版本）
+运行环境：
+支持windows10或Windows8.1以上版本（视在Visual Studio编译时选择的SDK而定），若要在Windows8及以下版本运行可能需要安装微软的Redist（VC2015）库

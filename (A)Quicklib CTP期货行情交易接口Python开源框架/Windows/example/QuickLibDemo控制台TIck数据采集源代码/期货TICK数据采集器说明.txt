@@ -1,0 +1,10 @@
+QuickLib（CTP,for Python）是基于上期公司CTP接口，采用C++开发的高性能 交易、行情、指标、公式、行情数据处理、止损接口
+
+本工具采用QuickLib库开发，可用来采集期货的历史TICK数据
+
+其中Instrument.ini是需要采集的合约名称
+直接运行QuickLibDemo.exe开始采集数据，保存至TickData_Detail文件夹内，以csv文件格式保存
+支持多品种同时采集
+
+
+QuickLib 官方 QQ群 5172183
