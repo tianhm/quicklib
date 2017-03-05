@@ -134,59 +134,16 @@ cmddict={
     SYSTEM_ACCOUNT_BALANCE:OnRspQryTradingBalance    
 }
 #-----------------------------------------------------------------------------------------
-#回调函数
-def OnCmd():
-    while (1):
-        #if trader.OnCmd():  #接受到的指令回调
-        #获得缓冲区指令个数，遍历执行，大多数情况下只有1条指令，立即被处理完成
-        #     for i in range(trader.GetCmdSize()):
-        #                cmddict[trader.GetCmd()]()
-        print(u"Wait for a New Cmd\n");
-        cmddict[OnCmd()]()
-        print(u"A New cmd\n")        
-        '''        
-        if trader.OnCmd():  #判断是否有新Tick数据，while循环不需要Sleep,当没有新Tick时，会处在阻塞状态
-            print(u"A New cmd\n");
-            for i in range(trader.GetUnGetCmdSize()):
-                tup=trader.GetCmd()
-                #print u"-----begin-----"
-                #print tup[0]
-                #print tup[1]
-                #print u"-----end-----"
-                cmddict[tup[0]](tup[1])
-         '''
+ 
 
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
 def main():
-
-    #读配置文件账号信息，自动傻瓜式初始化连接服务器并登录，自动断线重连
-    #test.SetAutoMode()
-    #while(1):  #死循环
-    #        OnCmd()
-    #print(u"官方QQ群 5172183 \n");
-    #初始化线程池，只建立一次进程池，预设进程池的进程最大数量为1
-    '''    
-    pool = multiprocessing.Pool(processes = 1)
-    #开启多进程来进行回调函数，维持执行的进程总数为1
-    pool.apply_async(OnCmd, (1,))
-    num=0
-    '''
-                
-    OrderRef2 = test.GetTestData('ag1706','20170201', '20170401', 100)    
-    while(1):  #死循环，反复执行
-        #time.sleep(0.1)  #系统休眠0.1秒
-        #num=num+1
-        #time.sleep(10)
-        #OrderRef2 = test.InsertOrder('600200', YT_D_Sell, YT_OF_Open, YT_OPT_LimitPrice, market.LastPrice('600200')-10, 1)   
-        #print ('<%d>'%num)       
-  
+    test.GetTestData('ag1706','20170201', '20170401', 100)    
+    while(1): 
         print(u"Wait for a New Cmd\n");
-        cmddict[OnCmd()]()
+        cmddict[test.OnCmd()]()
         print(u"A New cmd\n")     
-        #time.sleep(1)
-        #撤销所有未成交的委托单
-        #ret = test.DeleteOrder('zn1610', OrderRef)        
-        #time.sleep(5)  #sleep1秒，防止死循环导致CPU占有率过高，1即可，不宜过大，若过大会导致程序进程长时间无响应，丢失行情数据
+ 
 if __name__ == '__main__':
     main()
     
