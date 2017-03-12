@@ -1,0 +1,2 @@
+该thostmduserapi.dll已经随DataCollectServer.exe打包，通常不需要，
+若运行程序时提示缺少thostmduserapi。dll，请拷贝至主程序目录下，再运行主程序
