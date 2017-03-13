@@ -376,7 +376,14 @@ cmddict={
 
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
 def main():
-    test.GetTestData('ag1706','20170201', '20170401', 0)    
+    #connectref=test.ConnectServer('118.89.147.67')
+    connectref=test.ConnectServer('127.0.0.1')  #本机IP地址127.0.0.1
+    if connectref==True:
+        print u'连接历史回播行情服务器成功'
+        test.GetTestData('ag1706','20170201', '20170401', 0)    
+    else:
+        print u'连接历史回播行情服务器失败'
+
     while(1): 
         print(u"Wait for a New Cmd\n");
         cmddict[test.OnCmd()]()
