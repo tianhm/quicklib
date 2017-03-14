@@ -376,8 +376,8 @@ cmddict={
 
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
 def main():
-    connectref=test.ConnectServer('data.quicklib.cn')  #官方维护的数据行情服务器，当前测试状态，将来会对多个用户并发做优化
-    #connectref=test.ConnectServer('127.0.0.1')  #127.0.0.1是本机IP地址，在本机运行收集工具（作为服务器）时使用
+    #connectref=test.ConnectServer('data.quicklib.cn')  #官方维护的数据行情服务器，当前测试状态，将来会对多个用户并发做优化
+    connectref=test.ConnectServer('127.0.0.1')  #127.0.0.1是本机IP地址，在本机运行收集工具（作为服务器）时使用
     if connectref==True:
         print u'连接历史回播行情服务器成功'
         test.GetTestData('ag1706','20170201', '20170401', 0)    
