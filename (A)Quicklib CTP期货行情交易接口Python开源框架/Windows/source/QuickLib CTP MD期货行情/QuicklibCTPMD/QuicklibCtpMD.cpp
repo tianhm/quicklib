@@ -240,13 +240,11 @@ strategys * its;
 Instructment * it;
 bool FindId2(const char *Instrument, const char * str)
 {
-	//char *pdest1;// , *pdest2;
-	//int  result1;// , result2;
 	char * pdest1 = strstr((char*)Instrument, (char*)str);
 	int  result1 = pdest1 - Instrument + 1;
 
 	if (pdest1 != NULL)
-	{		//printf("在%s发现%s\n", InstrumentID_n[id],str );
+	{	//printf("在%s发现%s\n", InstrumentID_n[id],str );
 		return true;
 	}
 	else
@@ -498,15 +496,9 @@ QS_Strategy_Map mapStrategy;
 
 bool ReadInstrument()
 {
-
-
 	printf("read Instrument.ini\n");
 	CIniFile	cfgfile("./Instrument.ini");
 	int num = cfgfile.ReadInteger("number:", "num", 10);
-
-
-
-	//char qsid_id[100] = { 0 };
 	char instr[100] = { 0 };
 	it = new Instructment[TYPE_ARR_LEN];
 	memset(it, 0, sizeof(Instructment)*TYPE_ARR_LEN);
@@ -529,7 +521,6 @@ bool ReadInstrument()
 		//int qsid_zx = ini.ReadInteger(qsid_id, "qsid_zx", 0);
 		//int qsid_jy = ini.ReadInteger(qsid_id, "qsid_jy", 0)
 
-	 //	printf("A1\n");
 		// cfgfile.ReadString("合约品种", instr, "", it[i].instructment, dim(it[i].instructment));
 
 
@@ -596,7 +587,6 @@ bool ReadInstrument()
 				////////////////////////////////////读取字段strategy
 			}
 			int id = -1;
-			//printf("A1\n");
 			if (1)
 			{
 				////////////////////////////////////读取字段position
@@ -609,17 +599,12 @@ bool ReadInstrument()
 				//temp = str.substr(str.length() - 1, 1);
 				if (positionratestr.substr(positionratestr.length() - 1, 1) != ",")
 				{
-					//printf("B3\n");
 					positionratestr = positionratestr + ",";
-					//printf("B4\n");
 				}
-				//printf("A2\n");
 				const char* delim = ",";
 				const int len = strlen(delim);
 				size_t index = 0;
 				size_t pos = positionratestr.find(delim, index);
-				//printf("A3\n");
-
 				while (pos != string::npos)
 				{
 					id++;
@@ -632,9 +617,6 @@ bool ReadInstrument()
 
 
 				}
-				//printf("A4\n");
-
-
 				////////////////////////////////////读取字段position
 
 			}
@@ -653,7 +635,7 @@ bool ReadInstrument()
 		}
 
 
-		//printf("A5\n");
+
 		//map
 
 		//int TYPEIDXB = j;// GetType(temp) - 100000;
@@ -678,7 +660,7 @@ bool ReadInstrument()
 		//printf("***************\n");
 		/*
 
-		//printf("A2\n");
+
 		char instrument_MD[30] = { 0 };
 		char instrument_TRADE[30] = { 0 };
 		_snprintf_s(instrument_MD, sizeof(instrument_MD), sizeof(instrument_MD), "%s行情", it[TYPEIDXB].instructment);
@@ -702,16 +684,6 @@ bool ReadInstrument()
 		*/
 
 	}
-
-
-	//printf("A9\n");
-
-
-	//cfgfile.ReadString();
-	//cfgfile.ReadString("插件", "当前使用插件", "", dllfile, dim(dllfile));
-	//cfgfile.ReadString("插件", "当前使用插件", "", dllfile, dim(dllfile));
-	//cfgfile.ReadString("标题", "title", "钱龙无线", titlefile, dim(titlefile));
-	//	::SetWindowText(m_hWnd, titlefile);
 	return true;
 }
 
@@ -738,24 +710,17 @@ void ReadTradeTime()
 
 	int showstate = cfgfile.ReadInteger("时间段配置文件读取显示", "是否显示读取过程", 1);
 
-    
-
-
 	int num=cfgfile.ReadInteger("合约数量", "num",10);
 	if (showstate == 1)
 	{
 		printf("读取合约配置数量[%d]\n", num);
 	}
-	//it =new Instructment[num];
-	//memset(it,0, sizeof(Instructment)*num);
 
 
 	it = new Instructment[TYPE_ARR_LEN];
 	memset(it, 0, sizeof(Instructment)*TYPE_ARR_LEN);
-	//char * instr = "合约";
-	//strncpy_s(instr,sizeof(instr),"");
-	//strcat_s(instr, sizeof(inser), "%d", i);
-	//printf("A1\n");
+
+
 	for (int j = 0; j < num; j++)
 	{
 	 char instr[16] = {0};
@@ -786,12 +751,7 @@ void ReadTradeTime()
 	 char	endtime4[40] = { 0 };
 
 
-	 //if (showstate == 1)
-	// {
-		// printf("%s\n", instrument_MD);
-	// }
-	 //cfgfile.ReadString("ag", "begin1", NULL, begintime1, dim(begintime1));
-	 //cfgfile.ReadString("ag", "end1", NULL, endtime1, dim(endtime1));
+	 
 	 cfgfile.ReadString(instrument_MD, "begin1", "", begintime1, dim(begintime1));
 	 //printf("A30\n");
 	 cfgfile.ReadString(instrument_MD, "end1", "", endtime1, dim(endtime1));
@@ -883,13 +843,6 @@ void ReadTradeTime()
 	{
 		printf("**********TradeTime.ini配置文件读取结束************\n");
 	}
-
-	//cfgfile.ReadString();
-	//cfgfile.ReadString("插件", "当前使用插件", "", dllfile, dim(dllfile));
-	//cfgfile.ReadString("插件", "当前使用插件", "", dllfile, dim(dllfile));
-	//cfgfile.ReadString("标题", "title", "钱龙无线", titlefile, dim(titlefile));
-//	::SetWindowText(m_hWnd, titlefile);
-
 }
 
 
@@ -1013,7 +966,6 @@ BOOL GetMacByCmd(TCHAR *lpszMac)
 		if (!bret)
 		{
 			//关闭所有的句柄
-			// AfxMessageBox(_T("B"));
 			CloseHandle(hWritePipe);
 			CloseHandle(pi.hProcess);
 			CloseHandle(pi.hThread);
@@ -1046,7 +998,6 @@ BOOL GetMacByCmd(TCHAR *lpszMac)
 		}
 	}
 	//关闭所有的句柄
-	// AfxMessageBox(_T("C"));
 	CloseHandle(hWritePipe);
 	CloseHandle(pi.hProcess);
 	CloseHandle(pi.hThread);
@@ -1091,9 +1042,6 @@ BOOL GetMacByCmd2(TCHAR *lpszMac)
 	{
 		WaitForSingleObject(pi.hProcess, INFINITE);
 		unsigned long count;
-
-		//AfxMessageBox(_T("A"));
-
 		//CloseHandle(hWritePipe);
 		memset(szBuffer, 0x00, sizeof(szBuffer));
 		bret = ReadFile(hReadPipe, szBuffer, MAX_COMMAND_SIZE, &count, 0);
@@ -2395,7 +2343,7 @@ void  WirteUpdateNotice()
 
 bool QuickLib_MD_Start()
 {
-	printf("QuickLib(Market.CTP for Python)2.08\n");
+	printf("QuickLib(Market.CTP for Python)2.09\n");
 
 
 	//HelloWorld();
@@ -2523,6 +2471,7 @@ bool QuickLib_MD_Start()
 	}
 	*/
 
+	   /*
 		printf("MAC：%s\n", GetMacAddress().c_str());
 
 
@@ -2538,7 +2487,7 @@ bool QuickLib_MD_Start()
 
 
 		printf("DeSTR ：%s\n", MoreStrOnBAesDe(MoreStrOnBAesEn(temp)).c_str());
-
+		*/
 
 
 
@@ -2562,7 +2511,7 @@ bool QuickLib_MD_Start()
 
 void UnSubscribeMarketData(const char *InstrumentID)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	if (mapInstrument)
 	{
 	
@@ -2576,7 +2525,6 @@ void UnSubscribeMarketData(const char *InstrumentID)
 	::strcpy(ppInstrumentID[amount], InstrumentID);
 	//::strcpy_s(ppInstrumentID[amount],sizeof(ppInstrumentID[amount]), contract);
 	gMarket[InstrumentID] = amount;
-	//data[amount] = new CThostFtdcDepthMarketDataField;
 	depthdata[amount] = new CThostFtdcDepthMarketDataField;
 	memset(depthdata[amount],0,sizeof(CThostFtdcDepthMarketDataField));
 
@@ -3281,7 +3229,7 @@ bool Add(const char *InstrumentID, const PERIODTYPE * pt)
 
 void Subscribe(const char *InstrumentID)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	Add(InstrumentID, NULL);
 	ppInstrumentID[amount] = new TThostFtdcInstrumentIDType;
 	::strcpy(ppInstrumentID[amount], InstrumentID);
@@ -3296,7 +3244,7 @@ void Subscribe(const char *InstrumentID)
 
 void Subscribe1(const char *InstrumentID, int periodtype1)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = NULL;
@@ -3319,7 +3267,7 @@ void Subscribe1(const char *InstrumentID, int periodtype1)
 }
 void Subscribe2(const char *InstrumentID, int periodtype1, int periodtype2)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3345,7 +3293,7 @@ void Subscribe2(const char *InstrumentID, int periodtype1, int periodtype2)
 }
 void Subscribe3(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3370,7 +3318,7 @@ void Subscribe3(const char *InstrumentID, int periodtype1, int periodtype2, int 
 
 void Subscribe4(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3400,7 +3348,7 @@ void Subscribe4(const char *InstrumentID, int periodtype1, int periodtype2, int 
 
 void Subscribe5(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3430,7 +3378,7 @@ void Subscribe5(const char *InstrumentID, int periodtype1, int periodtype2, int 
 
 void Subscribe6(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3445,7 +3393,6 @@ void Subscribe6(const char *InstrumentID, int periodtype1, int periodtype2, int 
 	::strcpy(ppInstrumentID[amount], InstrumentID);
 	//::strcpy_s(ppInstrumentID[amount],sizeof(ppInstrumentID[amount]), contract);
 	gMarket[InstrumentID] = amount;
-	//data[amount] = new CThostFtdcDepthMarketDataField;
 	depthdata[amount] = new CThostFtdcDepthMarketDataField;
 	++amount;
 	gMDSpi.SubscribeMarketData();
@@ -3454,7 +3401,7 @@ void Subscribe6(const char *InstrumentID, int periodtype1, int periodtype2, int 
 
 void Subscribe7(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6, int periodtype7)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
@@ -3471,7 +3418,6 @@ void Subscribe7(const char *InstrumentID, int periodtype1, int periodtype2, int 
 	::strcpy(ppInstrumentID[amount], InstrumentID);
 	//::strcpy_s(ppInstrumentID[amount],sizeof(ppInstrumentID[amount]), contract);
 	gMarket[InstrumentID] = amount;
-	//data[amount] = new CThostFtdcDepthMarketDataField;
 	depthdata[amount] = new CThostFtdcDepthMarketDataField;
 	++amount;
 	gMDSpi.SubscribeMarketData();
@@ -3481,7 +3427,7 @@ void Subscribe7(const char *InstrumentID, int periodtype1, int periodtype2, int 
 
 void Subscribe8(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6, int periodtype7, int periodtype8)
 {
-	char * crcvalue = NULL;
+	//char * crcvalue = NULL;
 	PERIODTYPE pt;
 	pt.periodtype[0] = periodtype1;
 	pt.periodtype[1] = periodtype2;
@@ -3497,7 +3443,6 @@ void Subscribe8(const char *InstrumentID, int periodtype1, int periodtype2, int 
 	::strcpy(ppInstrumentID[amount], InstrumentID);
 	//::strcpy_s(ppInstrumentID[amount],sizeof(ppInstrumentID[amount]), contract);
 	gMarket[InstrumentID] = amount;
-	//data[amount] = new CThostFtdcDepthMarketDataField;
 	depthdata[amount] = new CThostFtdcDepthMarketDataField;
 	++amount;
 	gMDSpi.SubscribeMarketData();
@@ -5657,10 +5602,7 @@ int GetUnGetCmdSize()
 	return cmdlist.size();
 }
 
-//int GetUnGetTickSize()
-//{
-	//return cmdlist.size();
-//}
+
 
 int  GetCmd()
 {

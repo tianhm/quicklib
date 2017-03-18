@@ -263,7 +263,7 @@ void QLCTPTraderSpi::ReqQryInvestorPosition()
 
 bool QLCTPTraderSpi::Init()
 {
-	printf("QuickLib(Trader.CTP for Python)2.08\n");
+	printf("QuickLib(Trader.CTP for Python)2.09\n");
 	char dir[256] = {0};
 	//::ZeroMemory(dir, 256);
 	::GetCurrentDirectory(255, dir);

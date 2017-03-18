@@ -108,17 +108,7 @@ extern "C"{
 	void QUCIKLIB_MD_API SubscribeForQuoteRsp(char *InstrumentID);
 
 
-	/*
-	void QUCIKLIB_MD_API Subscribe(const char *InstrumentID, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe1(const char *InstrumentID, int periodtype1, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe2(const char *InstrumentID, int periodtype1, int periodtype2, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe3(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe4(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe5(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe6(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe7(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6, int periodtype7, bool printfstate);
-	void QUCIKLIB_MD_API Subscribe8(const char *InstrumentID, int periodtype1, int periodtype2, int periodtype3, int periodtype4, int periodtype5, int periodtype6, int periodtype7, int periodtype8, bool printfstate);
-	*/
+	
 
 	////////////////////////////////////////////////////////////////////////
 	void QUCIKLIB_MD_API SetPrintState(bool printfstate);

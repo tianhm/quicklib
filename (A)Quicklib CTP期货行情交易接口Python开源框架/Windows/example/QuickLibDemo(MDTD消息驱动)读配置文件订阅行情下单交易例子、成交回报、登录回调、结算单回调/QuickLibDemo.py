@@ -30,8 +30,8 @@ import multiprocessing
 #导入时间库
 import time, datetime
 import threading
-market = CTPMarket()   #行情接口类赋值给变量	
-trader = CTPTrader()   #交易接口类赋值给变量 
+global market  #行情接口类赋值给变量 
+global trader  #交易接口类赋值给变量 
 #限制交易时间
 today = datetime.date.today()
 gStart1 = datetime.datetime(today.year, today.month, today.day, 9, 30, 0) #开盘时间1
@@ -80,6 +80,7 @@ def MD_OnEmptyCmd():
     print "---------------MD_OnEmptyCmd---------------" 
 def MD_OnUserLogin():
     #登录成功
+    #global market
     print "---------------MD_OnUserLogin---------------" 
     data = cast(market.GetCmdContent_LoginScuess(), POINTER(QL_CThostFtdcRspUserLoginField))
     print "TradingDay %s"%(str(data[0].TradingDay))              #交易日
@@ -97,32 +98,39 @@ def MD_OnUserLogin():
     print "INETime %s"%(str(data[0].INETime))                    #能源中心时间
 def MD_OnUserLoginDenied():
     #登录被拒绝
-    print "---------------MD_OnUserLoginDenied---------------"         
+    print "---------------MD_OnUserLoginDenied---------------"
+    #global market
 def MD_OnUserLogout():
     #登出成功
     print "---------------MD_OnUserLogout---------------"
+    #global market
     data = cast(market.GetCmdContent_LoginOut(), POINTER(QL_CThostFtdcRspUserLoginField))
     print "BrokerID %s"%(str(data[0].BrokerID))            #期货公司brokeid
     print "UserID %s"%(str(data[0].UserID))                #账户    
 def MD_OnFrontConnected():
     #与行情服务器连接成功
     #当客户端与交易后台建立起通信连接时（还未登录前），该方法被调用。
-    print "---------------MD_OnFrontConnected---------------"    
+    print "---------------MD_OnFrontConnected---------------"
+    #global market
 def MD_OnFrontDisconnected():
     #与行情服务器断开连接
     #当客户端与交易后台通信连接断开时，该方法被调用。当发生这个情况后，API会自动重新连接，客户端可不做处理。
     print "---------------MD_OnFrontDisconnected---------------"
+    #global market
 def MD_OnFrontConnectedFailer():
     #连接失败
-    print "---------------MD_OnFrontConnectedFailer---------------"  
+    print "---------------MD_OnFrontConnectedFailer---------------"
+    #global market
 def MD_OnSubMarketData():
     #订阅成功
     print "---------------MD_OnSubMarketData---------------"
+    #global market
     data = cast(market.GetCmdContent_SubMarketData(), POINTER(QL_Instrument))
     print "InstrumentID %s"%(str(data[0].InstrumentID))              #合约代码  
 def MD_OnUnSubMarketData():
     #取消订阅行情成功
     print "---------------MD_OnUnSubMarketData---------------"
+    #global market
     data = cast(market.GetCmdContent_UnSubMarketData(), POINTER(QL_Instrument))
     print "InstrumentID %s"%(str(data[0].InstrumentID))              #合约代码  
 def MD_OnTick():
@@ -139,11 +147,13 @@ def MD_OnError():
     #错误信息回报
     print "---------------MD_OnRspError---------------"   
     data = cast(market.GetCmdContent_Error(), POINTER(QL_CThostFtdcRspInfoField))
+    #global market
     print "ErrorID %s"%(str(data[0].ErrorID))              #错误代码
     print "ErrorMsg %s"%(str(data[0].ErrorMsg))            #错误信息    
 def MD_OnForQuote():
     #询价通知
-    print "---------------MD_OnForQuote---------------"   
+    print "---------------MD_OnForQuote---------------"
+    #global market
     data = cast(market.GetCmdContent_Forquote(), POINTER(QL_CThostFtdcForQuoteRspField))
     print "TradingDay %s"%(str(data[0].TradingDay))                #交易日
     print "InstrumentID %s"%(str(data[0].InstrumentID))            #合约代码        
@@ -169,6 +179,7 @@ mddict={
 
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
 def MDThread(func):
+
     market.SetTitle(u"程序标题%s"% market.GetApiVersion())
     #获得并打印对应的CTP API 版本号
     print (u"CTP API版本%s"%market.GetApiVersion())
@@ -184,17 +195,7 @@ def MDThread(func):
     
     #os.system("QucikLib")    
     #从配置文件Instrument.ini  读取订阅的合约，每行写一个要订阅行情的合约，用调用ReadInstrument()的方式就无需通过调用Subcribe系列函数方式来订阅合约了，编译成exe后，也方便通过更改配置文件来更改合约
-   
-    retLogin = trader.Login()  #调用交易接口元素，通过 “ 接口变量.元素（接口类内部定义的方法或变量） ” 形式调用
-    # Login()，不需要参数，Login读取QuickLibTD.ini的配置信息，并登录
-    # 返回0， 表示登录成功，
-    # 返回1， FutureTDAccount.ini错误
-    # 返回2， 登录超时
-    print ('login: ', retLogin)   
-    if retLogin==0:
-        print u'登陆交易成功'
-    else:
-        print u'登陆交易失败'
+
        
     #设置拒绝接收行情服务器数据的时间，有时候（特别是模拟盘）在早晨6-8点会发送前一天的行情数据，若不拒收的话，会导致历史数据错误，本方法最多可以设置4个时间段进行拒收数据
     market.SetRejectdataTime(0.0400, 0.0840, 0.1530, 0.2030, NULL, NULL, NULL, NULL);    
@@ -421,12 +422,14 @@ def TD_OnFrontConnectedFailer():
     
 def TD_OnError():
     #错误信息回报
+    #global trader
     print "---------------TD_OnRspError---------------"   
     data = cast(trader.GetCmdContent_Error(), POINTER(QL_CThostFtdcRspInfoField))
     print "ErrorID %s"%(str(data[0].ErrorID))              #错误代码
     print "ErrorMsg %s"%(str(data[0].ErrorMsg))            #错误信息
 
 def TD_OnOrder():
+    #global trader
     #订单回报
     print "---------------TD_OnRspOrder---------------"
     data = cast(trader.GetCmdContent_Order(), POINTER(QL_CThostFtdcOrderField))    
@@ -470,6 +473,7 @@ def TD_OnOrder():
     
 def TD_OnSettlementInfoConfirm():
     #结算确认回报
+    #global trader
     print "---------------TD_OnRspSettlementInfoConfirm---------------"   
     data = cast(trader.GetCmdContent_Settlement(), POINTER(QL_CThostFtdcSettlementInfoConfirmField))
     print "BrokerID %s"%(str(data[0].BrokerID))              #经纪公司代码
@@ -479,6 +483,7 @@ def TD_OnSettlementInfoConfirm():
     
 def TD_OnMaxOrderVolume():
     #查询最大报单数量响应
+    #global trader
     print "---------------TD_OnRspSettlementInfoConfirm---------------"   
     data = cast(trader.GetCmdContent_Settlement(), POINTER(QL_CThostFtdcQueryMaxOrderVolumeField))
     print "BrokerID %s"%(str(data[0].BrokerID))              #经纪公司代码
@@ -506,8 +511,9 @@ tddict={
 #------------------------------------------TD回调函数、相关变量结束----------------------------------------------
 
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
-def TDThread(func):
+def TDThread(func): 
     print(u"官方QQ群 5172183 \n");
+
     retLogin = trader.Login()  #调用交易接口元素，通过 “ 接口变量.元素（接口类内部定义的方法或变量） ” 形式调用
     # Login()，不需要参数，Login读取QuickLibTD.ini的配置信息，并登录
     # 返回0， 表示登录成功，
@@ -551,7 +557,10 @@ thread2 = threading.Thread(target=TDThread,args=(u'a',))
 threads.append(thread2)
 # main()为程序入口函数，所有的行情、交易订阅、指标调用、下单的逻辑均写在此函数内执行
 def main():
-    
+    global market
+    market = CTPMarket()   #行情接口类赋值给变量	   
+    global trader
+    trader = CTPTrader()   #交易接口类赋值给变量       
     for tid in threads:
         tid.setDaemon(True)
         tid.start()    

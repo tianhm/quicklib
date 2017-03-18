@@ -33,6 +33,9 @@ Quciklib Python框架和工具暂不遵循开源协议包括：
 extern "C" {
 #endif
 
+//xx	
+int QUICKLIB_TD_API QryQueryMaxOrderVolume(char *BrokerID, char * InvestorID, char * Instrument, char * Direction, char * OffsetFlag, char * HedgeFlag,int MaxVolume);
+
 int QUICKLIB_TD_API Login();
 
 int QUICKLIB_TD_API InsertOrderByRate(char *Instrument, char direction, char offsetFlag, char priceType, double price,double rate, bool BalanceType,int multiplier);

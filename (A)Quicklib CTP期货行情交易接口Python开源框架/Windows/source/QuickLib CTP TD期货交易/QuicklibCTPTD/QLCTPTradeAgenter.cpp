@@ -113,17 +113,15 @@ void QuickLib_TD_Start()
 		}
 
 	}
-
 	InitializeCriticalSection(&g_csdata);
-
-	std::cout << __FUNCTION__ << std::endl;
+	//std::cout << __FUNCTION__ << std::endl;
 	ghTradedVolMutex = ::CreateMutex(NULL, FALSE, NULL);
-	std::cout << "Init Finished." << std::endl;
+	std::cout << "QuickLib CTP TD Init Finished." << std::endl;
 }
 
 void QuickLib_TD_End()
 {
-	std::cout << __FUNCTION__ << std::endl;
+	//std::cout << __FUNCTION__ << std::endl;
 	//临界区
 	DeleteCriticalSection(&g_csdata);
 
@@ -136,7 +134,7 @@ void QuickLib_TD_End()
 
 int Login()
 {
-	std::cout << __FUNCTION__ << std::endl;
+	//std::cout << __FUNCTION__ << std::endl;
 	std::ifstream ifs(gConfigFile.c_str());
 	if (ifs.is_open())
 	{
@@ -227,24 +225,15 @@ extern std::map<std::string, int> gTypeCheckState_B_History;
 
 extern QLCTPTraderSpi *mpUserSpi;
 
+int QUICKLIB_TD_API QryQueryMaxOrderVolume(char *BrokerID, char * InvestorID, char * Instrument, char * Direction, char * OffsetFlag, char * HedgeFlag, int MaxVolume)
+{
 
+	return 1;
+}
 int InsertOrderByRate(char *Instrument, char direction, char offsetFlag, char priceType, double price, double rate, bool BalanceType,int multiplier)
 {
 	//std::cout << __FUNCTION__ << Instrument << "\t" << direction << "\t"
 	//<< offsetFlag << "\t" << priceType << "\t" << price << "\t"
-	//<< num << std::endl;
-
-	//限制版
-
-	//num2++;
-	//while (num2 > maxordernum2)
-	//{
-	//	return 0;
-	//	break;
-	//}
-
-	//限制版
-
 
 	int num = 0;// rate*
 
@@ -285,18 +274,6 @@ int InsertOrder(char *Instrument, char direction, char offsetFlag, char priceTyp
 	std::cout << __FUNCTION__ << Instrument << "\t" << direction << "\t"
 		<< offsetFlag << "\t" << priceType << "\t" << price << "\t"
 		<< num << std::endl;
-
-	//限制版
-
-	//num2++;
-	//while (num2 > maxordernum2)
-	//{
-	//	return 0;
-	//	break;
-	//}
-
-	//限制版
-
 	printf("下单手数[%d]\n", num);
 
 	if (gTraderSpi.IsInitOK())
@@ -342,7 +319,6 @@ double QryUnderlyingMultiple(char *Instrument)
 	{
 		return -1; //未初始化完成
 	}
-	//OnRspQryInstrument
 	mpUserSpi->ReqQryInstrument(Instrument);//仓位管理		
 
 	int num = 0;
@@ -676,18 +652,7 @@ int  QUICKLIB_TD_API ReqQryContractBank()
 }
 
 
-int  QUICKLIB_TD_API  ReqFromBankToFutureByFuture(
-	char * BankID,
-	 //char * BankBranchID,
-	//char * BrokerID,
-	char *  BrokerBranchID,
-	char *BankAccount,
-	char * BankPassWord,
-	char * AccountID,
-	//char *Password,
-	//char * CurrencyID,
-	 double  TradeAmount,
-	int nRequestID)
+int  QUICKLIB_TD_API  ReqFromBankToFutureByFuture(char * BankID,char *  BrokerBranchID,char *BankAccount,char * BankPassWord,char * AccountID,double  TradeAmount,int nRequestID)
 {
 	 
 	/*

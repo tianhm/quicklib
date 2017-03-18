@@ -227,19 +227,7 @@ extern int  max_pure_m480_move_num;// = 99;  //按每天8小时估算为480分钟
 #define  TYPE_NEW19   100058
 #define  TYPE_NEW20   100059
 
-/*
-#define  TYPE_NEW21   10160 
-#define  TYPE_NEW22   10161 
-#define  TYPE_NEW23   10162 
-#define  TYPE_NEW24   10163 
-#define  TYPE_NEW25   10164 
-#define  TYPE_NEW26   10165 
-#define  TYPE_NEW27   10166 
-#define  TYPE_NEW28   10167 
-#define  TYPE_NEW29   10168 
-#define  TYPE_NEW30   10169 
-*/
-//TThostFtdcDateExprType	TradingDay;								//交易日期
+
 
 #pragma pack(8)
 
@@ -624,8 +612,6 @@ struct GuestOnlineHash                      //定义节点
 	//ADDR_RADER_INFO p2pAddr;				 // P2P通信时应使用的地址（客户方使用）
 	//char oncehash[7];
 
-	//enum  entry_status states;
-
 	int PositionAmount[TYPE_NUM];// = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //持仓方向，数量
 
 	int LastTurn[TYPE_NUM];// = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; //新增加
@@ -681,7 +667,4 @@ struct GuestOnlineHash                      //定义节点
 
 	
 };
-//*HashGuestOnlineNode2;
-
-
 #pragma pack()

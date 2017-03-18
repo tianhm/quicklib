@@ -33,7 +33,7 @@ Quciklib Python框架和工具暂不遵循开源协议包括：
 // Windows Header Files:
 #include <windows.h>
 
-//#include <commctrl.h>  //EDID显示器
+ 
 
 #include "ThostTraderApi/ThostFtdcUserApiDataType.h"
 #include "ThostTraderApi/ThostFtdcUserApiStruct.h"
@@ -53,7 +53,7 @@ struct cmdcontent
 	int cmd;
 	char content[31];
 };
-#define MAX_EVENTNUM  10
+#define MAX_EVENTNUM  64
 
 #define  EID_OnFrontDisconnected   0
 #define  EID_OnFrontConnected      1
@@ -68,19 +68,19 @@ struct cmdcontent
 
 
 //回调类型
-#define SYSTEM_EMPTY  8000 //无
-#define SYSTEM_LOGIN_SCUESS  8001 //登录成功
-#define SYSTEM_LOGIN_DENIED  8002 //登录被拒绝
+#define SYSTEM_EMPTY                  8000 //无
+#define SYSTEM_LOGIN_SCUESS           8001 //登录成功
+#define SYSTEM_LOGIN_DENIED           8002 //登录被拒绝
 //#define SYSTEM_LOGIN_ERRORPASSWORD  8003 //密码错误 ??
-#define SYSTEM_LOGINOUT_SCUESS  8004 //登出成功
-#define SYSTEM_NETCONNECT_SCUESS  8005 //连接成功
-#define SYSTEM_NETCONNECT_BREAK  8006 //断开连接
-#define SYSTEM_NETCONNECT_FAILER  8007 //连接失败 ??
-#define SYSTEM_SUBCRIBE_SCUESS  8008 //订阅成功
-#define SYSTEM_UNSUBCRIBE_SCUESS  8009 //取消订阅成功
-#define SYSTEM_NEWTICK  8010 //新Tick到来
-#define SYSTEM_SYSTEM_ERROR  8011 //错误应答
-#define SYSTEM_QRY_FORQUOTE  8012 //
+#define SYSTEM_LOGINOUT_SCUESS        8004 //登出成功
+#define SYSTEM_NETCONNECT_SCUESS      8005 //连接成功
+#define SYSTEM_NETCONNECT_BREAK       8006 //断开连接
+#define SYSTEM_NETCONNECT_FAILER      8007 //连接失败 ??
+#define SYSTEM_SUBCRIBE_SCUESS        8008 //订阅成功
+#define SYSTEM_UNSUBCRIBE_SCUESS      8009 //取消订阅成功
+#define SYSTEM_NEWTICK                8010 //新Tick到来
+#define SYSTEM_SYSTEM_ERROR           8011 //错误应答
+#define SYSTEM_QRY_FORQUOTE           8012 //
 
 struct TThostFtdcInstrumentIDTypeStruct
 {

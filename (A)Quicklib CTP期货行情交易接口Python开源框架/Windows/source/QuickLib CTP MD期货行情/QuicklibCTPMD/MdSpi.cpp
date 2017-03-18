@@ -69,17 +69,14 @@ extern std::string gUserID;
 extern std::string gPassword;
 
 extern char* ppInstrumentID[];	
-//extern CThostFtdcDepthMarketDataField *data[];
 extern CThostFtdcDepthMarketDataField *depthdata[];
 extern int size;
 extern int amount;
 extern std::map<std::string, int> gMarket;
 
-//extern CThostFtdcDepthMarketDataField* data1;
+ 
 extern CThostFtdcDepthMarketDataField* depthdata1;
-extern int size;
-extern int amount;
-
+ 
 extern bool allprintfstate; //是否打印 tick数据
 CRITICAL_SECTION g_csdata;
 extern list <cmdcontent> cmdlist;
@@ -5377,15 +5374,9 @@ void CMdSpi::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin,CThostFtd
 
 }
 
-void CMdSpi::SubscribeForQuoteRsp(  char * InstrumentID)
+void CMdSpi::SubscribeForQuoteRsp(char * InstrumentID)
 {
 	int iResult = mpUserApi->SubscribeForQuoteRsp(&InstrumentID,1);
-	//std::cout << "询价[" << InstrumentID << "]成功" << std::endl;
-	//allprintfstate = printfstate;
-	//if(printfstate)
-	//   std::cout <<"订阅["<< ppInstrumentID[amount - 1] <<"]行情成功(显示模式，打印Tick数据)"<< std::endl;
-	//else
-	//std::cout << "订阅[" << ppInstrumentID[amount - 1] << "]行情成功(静默模式，不打印Tick数据)" << std::endl;
 	if (iResult != 0)
 		cerr << "Failer:询价[" << InstrumentID << "]" << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
@@ -5397,13 +5388,6 @@ void CMdSpi::SubscribeForQuoteRsp(  char * InstrumentID)
 void CMdSpi::SubscribeMarketData()
 {
 	int iResult = mpUserApi->SubscribeMarketData( &(ppInstrumentID[amount - 1]), 1);
-	//std::cout << "订阅[" << ppInstrumentID[amount - 1] << "]行情成功" << std::endl;
-	//allprintfstate = printfstate;
-	//if(printfstate)
-	//   std::cout <<"订阅["<< ppInstrumentID[amount - 1] <<"]行情成功(显示模式，打印Tick数据)"<< std::endl;
-	//else
-	   //std::cout << "订阅[" << ppInstrumentID[amount - 1] << "]行情成功(静默模式，不打印Tick数据)" << std::endl;
-
 	if (iResult != 0)
 	    cerr << "Failer:订阅[" << ppInstrumentID[amount - 1] << "]" << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
@@ -5414,18 +5398,16 @@ void CMdSpi::SubscribeMarketData()
 
 void CMdSpi::UnSubscribeMarketData()
 {
-	int iResult = mpUserApi->UnSubscribeMarketData(&(ppInstrumentID[amount - 1]), 1);
-
-	//allprintfstate = printfstate;
-	//if (printfstate)
-		//std::cout << "取消订阅[" << ppInstrumentID[amount - 1] << "]行情成功(显示模式，打印Tick数据)" << std::endl;
-	//else
-		//std::cout << "取消订阅[" << ppInstrumentID[amount - 1] << "]行情成功" << std::endl;
-
+	if (amount >= 1)
+	{
+		int iResult = mpUserApi->UnSubscribeMarketData(&(ppInstrumentID[amount - 1]), 1);
 		if (iResult != 0)
 			cerr << "Failer:取消订阅[" << ppInstrumentID[amount - 1] << "]" << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 		else
 			std::cout << "Scuess:取消订阅[" << ppInstrumentID[amount - 1] << "]行情成功" << std::endl;
+	
+	}
+
 }
 
 
@@ -5763,7 +5745,6 @@ unsigned int __stdcall SniffAndTradingThread(void *lpParam)
 	return 0;
 }
 */
-//int showstate[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 double GetLocalTimeSec2()
 {
 	SYSTEMTIME sys_time;
@@ -5783,11 +5764,7 @@ void CMdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketDa
 	{
 		return;
 	}
-
-	//printf("%s  [%0.02f]\n",pDepthMarketData->InstrumentID, pDepthMarketData->LastPrice);
-
 	 std::cout << "data: " << pDepthMarketData->InstrumentID << pDepthMarketData->LastPrice<<std::endl;
-
 	//本机时间过滤
 	double Nowtime = GetLocalTimeSec2();
 	if (begintime1 > -0.1 && endtime1 > -0.1)
@@ -5829,53 +5806,10 @@ void CMdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketDa
 		}
 	}
 	//本机时间过滤
-
-
-	//printf("new data\n");
 	if (gMarket.find(pDepthMarketData->InstrumentID) != gMarket.end())
 	{
-		//memcpy(data[gMarket[pDepthMarketData->InstrumentID]],  pDepthMarketData, size);
-
-
 		memcpy(depthdata[gMarket[pDepthMarketData->InstrumentID]], pDepthMarketData, sizeof(CThostFtdcDepthMarketDataField));
-
-		//生成周期价格数据
-
-		//授权校验  有效期校验
-		;
-		 
-		/*srand((unsigned)time(NULL))
-		//有效期限制取消
-		if (rand() % 10000 == 0)
-		{
-			if (atoi(pDepthMarketData->ActionDay)- 20010210 >160320)  //20170530
-			{
-				//printf("超出时间限制\n");
-				exit(0);
-			}
-
-			  // cout << pDepthMarketData->ActionDay << endl;
-		}
-		*/
-
-		//if (pDepthMarketData->UpdateMillisec)
-		//{
-		//std::cout << "深度行情时间" << pDepthMarketData->UpdateTime << std::endl;
-
-		//pDepthMarketData->UpdateTime
-
-
-		//}
-		//printf("new update\n");
-		//	if (allprintfstate)
-		//{
-		//	printf("%s %0.02f %s\n", pDepthMarketData->InstrumentID, pDepthMarketData->LastPrice, pDepthMarketData->UpdateTime);
-	  //  }				
-		//恢复2017.1.1  CxHashList->
-		//printf("have\n");
 		UpdatePriceHash((char*)(&pDepthMarketData->InstrumentID), pDepthMarketData);
-
-
 		printf("savetickstate:[%d]\n", savetickstate);
 		if (savetickstate==2)
 		{   
@@ -5887,48 +5821,30 @@ void CMdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketDa
 			printf("保存数据(少量)中...\r");
 			WirteTick_Simple((char*)pDepthMarketData->InstrumentID, (char*)pDepthMarketData->UpdateTime, (double)pDepthMarketData->LastPrice);
 		}
-
-	//TThostFtdcInstrumentIDType  tt;
-		//char tn[31];
 		TThostFtdcInstrumentIDTypeStruct tn;
 		memset(&tn, 0, sizeof(TThostFtdcInstrumentIDTypeStruct));
 
 		strncpy_s(tn.Instrument, sizeof(tn.Instrument), pDepthMarketData->InstrumentID, sizeof(pDepthMarketData->InstrumentID));
-		//tn.cmd = SYSTEM_NEWTICK;
 
 		EnterCriticalSection(&g_csdata);
 		ticknamelist.push_back(tn);
-		//ticknamelist.push_back(*(TThostFtdcInstrumentIDType*)(&tt));
 		LeaveCriticalSection(&g_csdata);
-
 		//时间驱动
 		SetEvent(hEvent[EID_OnRtnDepthMarketData]);
-
 		return;
 		//下面的暂时屏蔽，对多策略
 
        //生成周期价格数据
-	
-		//map
 		string instrumentstr = pDepthMarketData->InstrumentID;
 		QS_Strategy_Map::iterator it = mapStrategy.find(instrumentstr);
 		if (it == mapStrategy.end())
 		{
-			//返回错误包
-			//m_pConnect->SetErrorMg("未配置此券商!");
-			//AddErrorPackage(head);
-			//if (allprintfstate) {
 				printf("没找到该合约的策略%s\n", pDepthMarketData->InstrumentID); 
-			//}
-			//return -1;
 		}
 		else
 		{
-			//WriteLog(0, 100, "qisd_jy:%d, qsid_zx:%d ", qsid, it->second);
 			for (int k = 0; k < it->second.strategyfilenum; k++)
 			{
-				//if (it->second.strategyfile[k] != "")
-				//{
 				if (true) 
 				{ 
 					printf("调用[%s]的策略文件：[%s] 仓位[%d]\n", pDepthMarketData->InstrumentID, (it->second.strategyfile[k]).c_str(), it->second.position[k]);
@@ -5954,34 +5870,9 @@ void CMdSpi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketDa
 					}
 				
 				}
-				//}
-			}
-			//qsid = it->second;
-		}
-
-
-		/*
-		//有效期限制取消
-
-	   //授权校验 有效期校验
-		if (rand() % 40000 == 0)
-		{
-			if (atoi(pDepthMarketData->ActionDay) - 20010210 >160320)  //20170530
-			{
-				char temp[5];// = { 0 };
-				sprintf_s(temp,sizeof(temp),"%s",20);
 			}
 		}
-
-		*/
-		
-
 	}
-	//else
-	//{
-	//	printf("~~~~~null\n");
-	
-	//}
 }
 
 bool CMdSpi::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)
@@ -5995,7 +5886,6 @@ bool CMdSpi::IsErrorRspInfo(CThostFtdcRspInfoField *pRspInfo)
 		std::cout << t.wHour << ":" << t.wMinute << ":" << t.wSecond << std::endl;
 		std::cout << "--->>> ErrorID=" << pRspInfo->ErrorID << ", ErrorMsg=" << pRspInfo->ErrorMsg << std::endl;
 		::Beep(800, 10000);
-
 		CThostFtdcRspInfoField tn;
 		memset(&tn, 0, sizeof(CThostFtdcRspInfoField));
 		tn.ErrorID = pRspInfo->ErrorID;
@@ -6015,11 +5905,9 @@ void  CMdSpi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificIns
 	CThostFtdcSpecificInstrumentField tn;
 	memset(&tn, 0, sizeof(CThostFtdcSpecificInstrumentField));
 	strncpy_s(tn.InstrumentID, sizeof(tn.InstrumentID), "订阅成功", sizeof("订阅成功"));
-	//tn.cmd = SYSTEM_SUBCRIBE_SCUESS;
 	EnterCriticalSection(&g_csdata);
 	subMarketlist.push_back(tn);
 	LeaveCriticalSection(&g_csdata);
-	//LeaveCriticalSection(&g_csdata);
 	SetEvent(hEvent[EID_OnRspSubMarketData]);
 };
 
@@ -6029,40 +5917,21 @@ void  CMdSpi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificI
 	CThostFtdcSpecificInstrumentField tn;
 	memset(&tn, 0, sizeof(CThostFtdcSpecificInstrumentField));
 	strncpy_s(tn.InstrumentID, sizeof(tn.InstrumentID), "取消订阅成功", sizeof("取消订阅成功"));
-	//tn.cmd = SYSTEM_UNSUBCRIBE_SCUESS;
 	EnterCriticalSection(&g_csdata);
 	unsubMarketlist.push_back(tn);
 	LeaveCriticalSection(&g_csdata);
-	//LeaveCriticalSection(&g_csdata);
 	SetEvent(hEvent[EID_OnRspUnSubMarketData]);
 };
 
 ///询价通知
 void  CMdSpi::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp)
 {
-	/*
-	///交易日
-	TThostFtdcDateType	TradingDay;
-	///合约代码
-	TThostFtdcInstrumentIDType	InstrumentID;
-	///询价编号
-	TThostFtdcOrderSysIDType	ForQuoteSysID;
-	///询价时间
-	TThostFtdcTimeType	ForQuoteTime;
-	///业务日期
-	TThostFtdcDateType	ActionDay;
-	///交易所代码
-	TThostFtdcExchangeIDType	ExchangeID;
-	*/
 	CThostFtdcForQuoteRspField tn;
 	memset(&tn, 0, sizeof(CThostFtdcForQuoteRspField));
 	memcpy_s(&tn,sizeof(CThostFtdcForQuoteRspField), pForQuoteRsp, sizeof(CThostFtdcForQuoteRspField));
-	//strncpy_s(tn.InstrumentID, sizeof(tn.InstrumentID), "取消订阅成功", sizeof("取消订阅成功"));
-	//tn.cmd = SYSTEM_UNSUBCRIBE_SCUESS;
 	EnterCriticalSection(&g_csdata);
 	forquotelist.push_back(tn);
 	LeaveCriticalSection(&g_csdata);
-	//LeaveCriticalSection(&g_csdata);
 	SetEvent(hEvent[EID_OnRspForQuote]);
 };
 
@@ -6073,10 +5942,8 @@ void CMdSpi::OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcR
 	memset(&tn, 0, sizeof(CThostFtdcUserLogoutField));
 	strncpy_s(tn.BrokerID, sizeof(tn.BrokerID), pUserLogout->BrokerID, sizeof(tn.BrokerID));
 	strncpy_s(tn.UserID, sizeof(tn.UserID), pUserLogout->UserID, sizeof(tn.UserID));
-	//tn.cmd = SYSTEM_LOGINOUT_SCUESS;
 	EnterCriticalSection(&g_csdata);
 	loginoutlist.push_back(tn);
 	LeaveCriticalSection(&g_csdata);
-	//LeaveCriticalSection(&g_csdata);
 	SetEvent(hEvent[EID_OnRspUserLogout]);
 }
