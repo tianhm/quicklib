@@ -280,7 +280,7 @@ bool QLCTPTraderSpi::Init()
 	mpUserApi->RegisterFront((char *)gTDFrontAddr[1].c_str());
 	mpUserApi->RegisterFront((char *)gTDFrontAddr[2].c_str());
 
-	std::cout << "Init..." << std::endl;
+	std::cout << "QuickLib TD  CTP Init..." << std::endl;
 	mpUserApi->Init();
 	DWORD err = ::WaitForSingleObject(hSyncObj, 10000);
 
@@ -970,9 +970,9 @@ void QLCTPTraderSpi::ReqQryInvestorPosition()
 	int iResult = mpUserApi->ReqQryInvestorPosition(&req, ++iRequestID);
 	//cerr << "--->>> 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败") << endl;
 	if (iResult != 0)
-		cerr << "Failer: 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryInvestorPosition): 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询投资者持仓: 成功" << endl;
+		cerr << "Scuess(ReqQryInvestorPosition): 请求查询投资者持仓: 成功" << endl;
 
 }
 
@@ -1026,9 +1026,9 @@ void QLCTPTraderSpi::ReqQryInvestorProductGroupMargin(char *Instrument)
 	//cerr << "--->>> 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败") << endl;
 
 	if (iResult != 0)
-		cerr << "Failer: 请求查询投资者品种/跨品种保证金: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryInvestorProductGroupMargin): 请求查询投资者品种/跨品种保证金: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询投资者品种/跨品种保证金: 成功" << endl;
+		cerr << "Scuess(ReqQryInvestorProductGroupMargin): 请求查询投资者品种/跨品种保证金: 成功" << endl;
 }
 
 
@@ -1037,9 +1037,9 @@ int QLCTPTraderSpi::ReqQueryMaxOrderVolume(CThostFtdcQueryMaxOrderVolumeField *p
 
 	int iResult = mpUserApi->ReqQueryMaxOrderVolume(pQueryMaxOrderVolume, ++iRequestID);
 	if (iResult != 0)
-		cerr << "Failer: 查询下单最大值: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQueryMaxOrderVolume): 查询下单最大值: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 查询下单最大值: 成功" << endl;
+		cerr << "Scuess(ReqQueryMaxOrderVolume): 查询下单最大值: 成功" << endl;
 
 	return iResult;
 }
@@ -1051,9 +1051,9 @@ int QLCTPTraderSpi::ReqFromBankToFutureByFuture(CThostFtdcReqTransferField *pReq
 	int iResult = mpUserApi->ReqFromBankToFutureByFuture(pReqTransfer, ++iRequestID);
 
 	if (iResult != 0)
-		cerr << "Failer: 期货发起银行资金转期货请求: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqFromBankToFutureByFuture): 期货发起银行资金转期货请求: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 期货发起银行资金转期货请求: 成功" << endl;
+		cerr << "Scuess(ReqFromBankToFutureByFuture): 期货发起银行资金转期货请求: 成功" << endl;
 
 	return iResult;
 }
@@ -1065,9 +1065,9 @@ int QLCTPTraderSpi::ReqFromFutureToBankByFuture(CThostFtdcReqTransferField *pReq
 	int iResult = mpUserApi->ReqFromFutureToBankByFuture(pReqTransfer, ++iRequestID);
 
 	if (iResult != 0)
-		cerr << "Failer: 期货发起期货资金转银行请求: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqFromFutureToBankByFuture): 期货发起期货资金转银行请求: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 期货发起期货资金转银行请求: 成功" << endl;
+		cerr << "Scuess(ReqFromFutureToBankByFuture): 期货发起期货资金转银行请求: 成功" << endl;
 
 	return iResult;
 }
@@ -1095,9 +1095,9 @@ void QLCTPTraderSpi::ReqQryInstrument(char *Instrument)
 	//cerr << "--->>> 请求查询合约: " << ((iResult == 0) ? "成功" : "失败") << endl;
 
 	if (iResult != 0)
-		cerr << "Failer: 请求查询合约: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryInstrument): 请求查询合约: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询合约: 成功" << endl;
+		cerr << "Scuess(ReqQryInstrument): 请求查询合约: 成功" << endl;
 }
 
 void QLCTPTraderSpi::ReqQryInstrumentMarginRate(char *Instrument)
@@ -1134,9 +1134,9 @@ void QLCTPTraderSpi::ReqQryInstrumentMarginRate(char *Instrument)
 
 
 	if (iResult != 0)
-		cerr << "Failer: 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryInstrumentMarginRate): 请求查询投资者持仓: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询投资者持仓: 成功" << endl;
+		cerr << "Scuess(ReqQryInstrumentMarginRate): 请求查询投资者持仓: 成功" << endl;
 }
 
 
@@ -1167,9 +1167,9 @@ int QLCTPTraderSpi::ReqQryInstrument(CThostFtdcQryInstrumentField *pQryInstrumen
 	//strcpy(req.InstrumentID, Instrument);
 	int iResult = mpUserApi->ReqQryInstrument(&req, ++iRequestID);
 	if (iResult != 0)
-		cerr << "Failer: 请求查询合约: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryInstrument): 请求查询合约: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询合约: 成功" << endl;
+		cerr << "Scuess(ReqQryInstrument): 请求查询合约: 成功" << endl;
 	return iResult;
 }
 
@@ -1189,9 +1189,9 @@ int QLCTPTraderSpi::ReqQryContractBank(CThostFtdcQryContractBankField *pQryContr
 	int iResult = mpUserApi->ReqQryContractBank(&req, ++iRequestID);
 	// cerr << "Failer: 请求查询银行: " << ((iResult == 0) ? "成功" : "失败(") << iResult<<")"<<endl;
 	if(iResult!=0)
-	    cerr << "Failer: 请求查询银行: " << ((iResult == 0) ? "成功" : "失败(") << iResult<<")"<<endl;
+	    cerr << "Failer(ReqQryContractBank): 请求查询银行: " << ((iResult == 0) ? "成功" : "失败(") << iResult<<")"<<endl;
 	else
-		cerr << "Scuess: 请求查询银行: 成功" <<endl;
+		cerr << "Scuess(ReqQryContractBank): 请求查询银行: 成功" <<endl;
 	return iResult;
 }
 
@@ -1212,16 +1212,13 @@ void QLCTPTraderSpi::ReqQryTradingAccount()
 
 
 	if (iResult != 0)
-		cerr << "Failer: 请求查询资金账户: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
+		cerr << "Failer(ReqQryTradingAccount): 请求查询资金账户: " << ((iResult == 0) ? "成功" : "失败(") << iResult << ")" << endl;
 	else
-		cerr << "Scuess: 请求查询资金账户: 成功" << endl;
+		cerr << "Scuess(ReqQryTradingAccount): 请求查询资金账户: 成功" << endl;
 }
 
 
-char	InstrumentID_n[TYPE_NUM][10] =
-{
-	"ni1701", "rb1701","ag1612","m1701","y1701","zn1611","bu1612","ru1701","cs1701","jd1701","pp1701","i1701","al1611","au1612","p1701","CF701","TA701","MA701","FG701" ,"a1701"
-};
+char	InstrumentID_n[TYPE_NUM][10] ={0};
 
 bool FindStr(int id, char * str)
 {
