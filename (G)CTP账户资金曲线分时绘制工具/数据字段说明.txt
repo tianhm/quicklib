@@ -1,0 +1,7 @@
+Brokeid (期货公司BROKEID),
+Account (账户),
+TradingDay (交易日),
+UserAmount（可用资金）,
+YestayAllAmount （静态权益）,
+TodayAllAmount（动态权益）,
+ 
