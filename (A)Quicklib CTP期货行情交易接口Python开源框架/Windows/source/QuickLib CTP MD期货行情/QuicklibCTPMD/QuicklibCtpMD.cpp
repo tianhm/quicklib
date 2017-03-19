@@ -74,8 +74,43 @@ list <CThostFtdcSpecificInstrumentField>::iterator unsubMarket_Iter;
 list <CThostFtdcForQuoteRspField> forquotelist;
 list <CThostFtdcForQuoteRspField>::iterator forquote_Iter;
 
+
+#define LOG_LENGTH    100
+struct LOGSTRUCT
+{
+	char log[LOG_LENGTH];
+};
+list <LOGSTRUCT> loglist;
+list <LOGSTRUCT>::iterator log_Iter;
+
+
+
+
 #include <process.h>
-HANDLE hEvent[MAX_EVENTNUM] = { NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL };
+HANDLE hEvent[MAX_EVENTNUM] = 
+{
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,
+	NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL,  NULL
+
+};
+void LOG(char * msg)
+{
+	LOGSTRUCT tn;
+
+	memset(&tn, 0, sizeof(LOGSTRUCT));
+	_snprintf_s(tn.log, sizeof(tn.log), sizeof(tn.log), "%s", msg);
+	EnterCriticalSection(&g_csdata);
+	loglist.push_back(tn);
+	LeaveCriticalSection(&g_csdata);
+	SetEvent(hEvent[EID_OnLog]);
+
+}
 //PYTHON
 #include "include_Python/Python.h"
 
@@ -496,7 +531,8 @@ QS_Strategy_Map mapStrategy;
 
 bool ReadInstrument()
 {
-	printf("read Instrument.ini\n");
+	//printf("read Instrument.ini\n");
+	LOG("read Instrument.ini");
 	CIniFile	cfgfile("./Instrument.ini");
 	int num = cfgfile.ReadInteger("number:", "num", 10);
 	char instr[100] = { 0 };
@@ -713,7 +749,10 @@ void ReadTradeTime()
 	int num=cfgfile.ReadInteger("合约数量", "num",10);
 	if (showstate == 1)
 	{
-		printf("读取合约配置数量[%d]\n", num);
+		//printf("读取合约配置数量[%d]\n", num);
+		char str[100] = { 0 };
+		_snprintf_s(str,sizeof(str),sizeof(str),"读取合约配置数量[%d]", num);
+		LOG(str);
 	}
 
 
@@ -785,10 +824,23 @@ void ReadTradeTime()
 	 { //行情
 		 printf("--------%s--------\n", instrument_MD);
 		 //it[TYPEIDXB].instructment
-		 printf("[%s ~ %s]\n",  begintime1, endtime1);
-		 printf("[%s ~ %s]\n",  begintime2, endtime2);
-		 printf("[%s ~ %s]\n",  begintime3, endtime3);
-		 printf("[%s ~ %s]\n",  begintime4, endtime4);
+		// printf("[%s ~ %s]\n",  begintime1, endtime1);
+		// printf("[%s ~ %s]\n",  begintime2, endtime2);
+		// printf("[%s ~ %s]\n",  begintime3, endtime3);
+		// printf("[%s ~ %s]\n",  begintime4, endtime4);
+
+		 char str[100] = { 0 };
+		 _snprintf_s(str, sizeof(str), sizeof(str), "[%s ~ %s]",  begintime1, endtime1);
+		 LOG(str);
+		 memset(str,0,sizeof(str));
+		 _snprintf_s(str, sizeof(str), sizeof(str), "[%s ~ %s]", begintime2, endtime2);
+		 LOG(str);
+		 memset(str, 0, sizeof(str));
+		 _snprintf_s(str, sizeof(str), sizeof(str), "[%s ~ %s]", begintime3, endtime3);
+		 LOG(str);
+		 memset(str, 0, sizeof(str));
+		 _snprintf_s(str, sizeof(str), sizeof(str), "[%s ~ %s]", begintime4, endtime4);
+		 LOG(str);
 	 }
 
 	 memset(begintime1, 0, sizeof(begintime1));
@@ -835,13 +887,18 @@ void ReadTradeTime()
 	   printf("[%s ~ %s]\n",  begintime2, endtime2);
 	   printf("[%s ~ %s]\n",  begintime3, endtime3);
 	   printf("[%s ~ %s]\n",  begintime4, endtime4);
+
+
+
 	 }
 
 	 
 	}
 	if (showstate == 1)
 	{
-		printf("**********TradeTime.ini配置文件读取结束************\n");
+		//printf("**********TradeTime.ini配置文件读取结束************\n");
+ 
+		LOG("TradeTime.ini配置文件读取结束");
 	}
 }
 
@@ -2387,7 +2444,11 @@ bool QuickLib_MD_Start()
 	}
 	else
 	{
-		std::cout << "fail to open " << gMDAccount << std::endl;
+		//std::cout << "fail to open " << gMDAccount << std::endl;
+		char str[100] = { 0 };
+		_snprintf_s(str,100,100,"Fail to open%s", gMDAccount.c_str());
+		LOG(str);
+
 		gStatus = 1;
 		return false;
 	}
@@ -2490,7 +2551,7 @@ bool QuickLib_MD_Start()
 		*/
 
 
-
+ 
 
 	//strategy1();
 	//strategy2(4,13);
@@ -2499,9 +2560,11 @@ bool QuickLib_MD_Start()
 	BOOL ret = gMDSpi.Init();
 	if (ret) 
 	{
+		LOG("Init finish.");
 		return TRUE;
 	}else
 	{
+		LOG("Init failer.");
 		return FALSE;
 	}
 }
@@ -3422,6 +3485,8 @@ void Subscribe7(const char *InstrumentID, int periodtype1, int periodtype2, int 
 	++amount;
 	gMDSpi.SubscribeMarketData();
 	printf("(并设置了7个周期)\n");
+
+
 }
 
 
@@ -4907,11 +4972,15 @@ int ReqUserLogout()
 
 bool  AddPeriodType2(const char *InstrumentID, int  periodtype)
 {
+		char str[100] = {0};
 	std::hash_map<string, GuestOnlineHash>::iterator it;
 	it = mapData.find(InstrumentID);
 	if (it == mapData.end())
 	{
-		printf("*************没找到该合约的%s\n", InstrumentID);
+	 
+		_snprintf_s(str,100,100,"%s", InstrumentID);
+		LOG(str);
+		//printf("*************没找到该合约的%s\n", InstrumentID);
 		//GuestOnlineHash value;
 		//InitGuestOnlineHash(&value);
 		//mapData.insert(std::make_pair(InstrumentID, value));
@@ -4921,6 +4990,7 @@ bool  AddPeriodType2(const char *InstrumentID, int  periodtype)
 	}
 	else
 	{
+
 		GuestOnlineHash * q = &(it->second);
 		switch (periodtype)
 		{
@@ -4933,49 +5003,79 @@ bool  AddPeriodType2(const char *InstrumentID, int  periodtype)
 			q->period_M30 = true;
 			q->period_M60 = true;
 			q->period_D1 = true;
-			printf("%s加入M1,M3,M5,M10,M15,M30,M60,D1周期\n", InstrumentID);
+			//printf("%s加入M1,M3,M5,M10,M15,M30,M60,D1周期\n", InstrumentID);
+
+			_snprintf_s(str, 100, 100, "%s加入M1,M3,M5,M10,M15,M30,M60,D1周期", InstrumentID);
+			LOG(str);
 			break;
 		case QL_M1:
 			q->period_M1 = true;
-			printf("%s加入M1周期\n", InstrumentID);
+			//printf("%s加入M1周期\n", InstrumentID);
+			
+			_snprintf_s(str, 100, 100, "%s加入M1周期", InstrumentID);
+			LOG(str);
 			break;
 		case QL_M3:
 			q->period_M3 = true;
-			printf("%s加入M3周期\n", InstrumentID);
+			//printf("%s加入M3周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M3周期", InstrumentID);
+			LOG(str);
 			break;
 		case QL_M5:
 			q->period_M5 = true;
-			printf("%s加入M5周期\n", InstrumentID);
+			//printf("%s加入M5周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M5周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_M10:
 			q->period_M10 = true;
-			printf("%s加入M10周期\n", InstrumentID);
+			//printf("%s加入M10周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M10周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_M15:
 			q->period_M15 = true;
-			printf("%s加入M15周期\n", InstrumentID);
+			//printf("%s加入M15周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M15周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_M30:
 			q->period_M30 = true;
-			printf("%s加入M30周期\n", InstrumentID);
+			//printf("%s加入M30周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M30周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_M60:
 			q->period_M60 = true;
-			printf("%s加入M60周期\n", InstrumentID);
+			//printf("%s加入M60周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M60周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_M120:
 			q->period_M120 = true;
-			printf("%s加入M120周期\n", InstrumentID);
+			//printf("%s加入M120周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入M120周期", InstrumentID);
+			LOG(str);
 			break;
 
 		case QL_D1:
 			q->period_D1 = true;
-			printf("%s加入D1周期\n", InstrumentID);
+			//printf("%s加入D1周期\n", InstrumentID);
+			//char str[100];
+			_snprintf_s(str, 100, 100, "%s加入D1周期", InstrumentID);
+			LOG(str);
 			break;
 		}
 	}
@@ -4987,8 +5087,10 @@ void AddPeriod(const char *InstrumentID, int periodtype,bool printfdata)
 
 	if (printfdata)
 	{
-		printf("添加[%s]周期(由Tick生成周期数据供指标调用)：", InstrumentID);
-	
+		//printf("添加[%s]周期(由Tick生成周期数据供指标调用)：", InstrumentID);
+		char str[100];
+		_snprintf_s(str, 100, 100, "添加[%s]周期(由Tick生成周期数据供指标调用)", InstrumentID);
+		LOG(str);
 	   switch (periodtype)
 	  {
 	  case QL_ALL:
@@ -5455,7 +5557,11 @@ int   OnCmd()
 		// The process identified by h[2] (hProcess3) terminated.
 		return SYSTEM_QRY_FORQUOTE;
 		break;
+	case WAIT_OBJECT_0 + EID_OnLog:
 
+		// The process identified by h[2] (hProcess3) terminated.
+		return SYSTEM_LOG;
+		break;
 		
 	}
 	//ResetEvent(hEvent);
@@ -5602,6 +5708,74 @@ int GetUnGetCmdSize()
 	return cmdlist.size();
 }
 
+int GetUnGetLogSize()
+{
+
+	return loglist.size();
+}
+char listlog[LOG_LENGTH] = { 0 };
+char *   GetLog()
+{
+	EnterCriticalSection(&g_csdata);
+	if (loglist.size() <= 0)
+	{
+		return "";
+	}
+	//memcpy_s(StockData[stockid], sizeof(CSecurityFtdcL2TradeField), &(*cmdlist.begin()), sizeof(CSecurityFtdcL2TradeField));
+
+	//printf("stockid:[%d]\n", stockid);
+	/*
+	///成交组
+	StockData[stockid]->TradeGroupID = cmdlist.begin()->TradeGroupID;
+	///成交序号
+	StockData[stockid]->TradeIndex = cmdlist.begin()->TradeIndex;
+	///买方委托序号
+	StockData[stockid]->BuyIndex = cmdlist.begin()->BuyIndex;
+	///卖方委托序号
+	StockData[stockid]->SellIndex = cmdlist.begin()->SellIndex;
+	///成交时间（秒）
+	_snprintf_s(StockData[stockid]->TradeTime, sizeof(TSecurityFtdcTimeType), sizeof(TSecurityFtdcTimeType), "%s", cmdlist.begin()->TradeTime);
+	///交易所代码
+	_snprintf_s(StockData[stockid]->ExchangeID, sizeof(TSecurityFtdcExchangeIDType), sizeof(TSecurityFtdcExchangeIDType), "%s", cmdlist.begin()->ExchangeID);
+	///合约代码
+	_snprintf_s(StockData[stockid]->InstrumentID, sizeof(TSecurityFtdcInstrumentIDType), sizeof(TSecurityFtdcInstrumentIDType), "%s", cmdlist.begin()->InstrumentID);
+	///成交价格
+	StockData[stockid]->Price = cmdlist.begin()->Price;
+	///成交数量
+	StockData[stockid]->Volume = cmdlist.begin()->Volume;
+	///报单类型
+	_snprintf_s(StockData[stockid]->OrderKind, sizeof(TSecurityFtdcOrderKindType), sizeof(TSecurityFtdcOrderKindType), "%s", cmdlist.begin()->OrderKind);
+	///功能码
+	_snprintf_s(StockData[stockid]->FunctionCode, sizeof(TSecurityFtdcFunctionCodeType), sizeof(TSecurityFtdcFunctionCodeType), "%s", cmdlist.begin()->FunctionCode);
+	*/
+
+	//memcpy_s(&(StockData[stockid]->data), sizeof(CSecurityFtdcL2TradeField_S), &cmdlist.begin(), sizeof(CSecurityFtdcL2TradeField_S));
+
+	//StockData[stockid]->data.ExchangeID
+
+	//printf("原始数据 InstrumentID[%s] price[%0.02f]\n", cmdlist.begin()->InstrumentID, cmdlist.begin()->Price);
+
+
+	//char temp[200] = { 0 };
+	//_snprintf_s(temp,sizeof(temp),sizeof(temp),"%s||%d",)
+	//printf("获得数据allow[%d] InstrumentID[%s] price[%0.02f]\n", StockData[stockid]->allow, StockData[stockid]->data.InstrumentID, StockData[stockid]->data.Price);
+	//char * newdata = new char[31];
+	//memset
+	//_snprintf_s(&listname, sizeof(listname), sizeof(listname), "%s",cmdlist.begin()->Instrument);
+
+
+	memset(&listlog, 0, sizeof(listlog));
+	memcpy_s(&listlog, sizeof(listlog), &loglist.begin()->log, sizeof(loglist.begin()->log));
+
+	//临界区
+
+	loglist.erase(loglist.begin());
+	//临界区
+	LeaveCriticalSection(&g_csdata);
+
+	return listlog;
+
+}
 
 
 int  GetCmd()

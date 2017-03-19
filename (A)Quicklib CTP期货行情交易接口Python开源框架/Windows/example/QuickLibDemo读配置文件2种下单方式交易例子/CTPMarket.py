@@ -227,7 +227,16 @@ class CTPMarket(object):
 		self.fCrossDown_s.restype = c_bool		
 		
                 #market.MA('zn1607',YT_M1,500,'YT_CLOSE')		
+		self.fGetLog = self.d2.GetLog
+		self.fGetLog.argtypes = []
+		self.fGetLog.restype = c_void_p
 		
+		
+	
+		#缓冲区日志数
+		self.fGetUnGetLogSize = self.d2.GetUnGetLogSize
+		self.fGetUnGetLogSize.argtypes = []
+		self.fGetUnGetLogSize.restype = c_int32		
 		
 		#self.fTestMA = self.d2.Test_MA
 		
@@ -744,6 +753,14 @@ class CTPMarket(object):
 	
 	def GetCmdContent_LoginOut(self):
 		#错误信息回调
-		return self.fGetCmdContent_LoginOut()		
+		return self.fGetCmdContent_LoginOut()
+	
+	#获取回调日志数量
+	def GetUnGetLogSize(self):
+		return self.fGetUnGetLogSize()
+	
+	def GetLog(self):
+		return self.fGetLog() 
+	
 	
 		  

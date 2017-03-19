@@ -65,7 +65,7 @@ struct cmdcontent
 #define  EID_OnRspUnSubMarketData  7
 #define  EID_OnRspUserLogout       8
 #define  EID_OnRspForQuote         9
-
+#define  EID_OnLog                 10
 
 //回调类型
 #define SYSTEM_EMPTY                  8000 //无
@@ -81,7 +81,7 @@ struct cmdcontent
 #define SYSTEM_NEWTICK                8010 //新Tick到来
 #define SYSTEM_SYSTEM_ERROR           8011 //错误应答
 #define SYSTEM_QRY_FORQUOTE           8012 //
-
+#define SYSTEM_LOG                    8013 //日志
 struct TThostFtdcInstrumentIDTypeStruct
 {
 	TThostFtdcInstrumentIDType Instrument;

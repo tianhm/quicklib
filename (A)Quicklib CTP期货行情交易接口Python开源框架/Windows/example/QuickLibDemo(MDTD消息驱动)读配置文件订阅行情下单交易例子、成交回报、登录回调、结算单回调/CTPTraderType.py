@@ -131,6 +131,12 @@ class QL_CThostFtdcRspUserLoginField(Structure):
                 ('INETime',		             c_char * 9)        #能源中心时间                
                 ]
     pass
+class QL_Log(Structure):
+    _fields_ = [('Log', 			     c_char * 100),       #日志
+ 
+              
+                ]
+    pass
 
 
 

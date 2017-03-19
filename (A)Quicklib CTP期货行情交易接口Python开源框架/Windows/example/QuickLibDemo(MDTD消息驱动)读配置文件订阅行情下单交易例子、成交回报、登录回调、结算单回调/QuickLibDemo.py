@@ -74,7 +74,14 @@ MD_UNSUBCRIBE_SCUESS        = 8009 #取消订阅成功
 MD_NEWTICK                  = 8010 #新Tick到来 
 MD_SYSTEM_ERROR             = 8011 #错误应答 
 MD_QRY_FORQUOTE             = 8012 #询价通知 
+MD_SYSTEM_LOG               = 8013  #日志
 
+def MD_OnLog():
+    #日志内容
+    while(market.GetUnGetLogSize()>0):
+        data = cast(market.GetLog(), POINTER(QL_Log))
+        print "---------------MD_OnLog---------------"
+        print "Log: %s"%((str(data[0].Log)))         #Log
 def MD_OnEmptyCmd():
     #回调指令缓冲区已为空（因为短时间获得多个指令，时间间隔态度，在下面的for i in range(market.GetUnGetCmdSize()):循环执行了多次已经完成了）
     print "---------------MD_OnEmptyCmd---------------" 
@@ -173,7 +180,9 @@ mddict={
           MD_UNSUBCRIBE_SCUESS:MD_OnUnSubMarketData,
           MD_NEWTICK:MD_OnTick,
           MD_SYSTEM_ERROR:MD_OnError,
-          MD_QRY_FORQUOTE:MD_OnForQuote
+          MD_QRY_FORQUOTE:MD_OnForQuote,
+          MD_SYSTEM_LOG:MD_OnLog
+          
         }
 #------------------------------------------MD回调函数、相关变量结束----------------------------------------------
 

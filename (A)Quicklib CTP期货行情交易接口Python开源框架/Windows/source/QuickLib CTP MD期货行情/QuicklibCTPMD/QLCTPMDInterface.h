@@ -118,6 +118,10 @@ extern "C"{
 	int QUCIKLIB_MD_API OnCmd();
 	int QUCIKLIB_MD_API GetUnGetCmdSize();
 
+
+	int QUCIKLIB_MD_API GetUnGetLogSize();
+	QUCIKLIB_MD_API char * GetLog(); //获得日志内容
+
 	void QUCIKLIB_MD_API SetRejectdataTime(double  begintime1,double endtime1,double begintime2,double endtime2, double begintime3, double endtime3, double begintime4, double endtime4);
 
 

@@ -111,23 +111,23 @@ class QL_CThostFtdcForQuoteRspField(Structure):
 NULL    =100
 
 # 周期定义
-YT_ALL			                        = 10000  	# 所有周期
-YT_M1 					        = 10001  	# M1   1分钟
-YT_M3 					        = 10002  	# M3   3分钟
-YT_M5 					        = 10003  	# M5   5分钟
-YT_M10 					        = 10004  	# M10  10分钟
-YT_M15 					        = 10005  	# M15  15分钟
-YT_M30 					        = 10006  	# M30  30分钟
-YT_M60 					        = 10007  	# M60  60分钟
-YT_M120 			                = 10008  	# M120 120分钟
-YT_D1			                        = 10009  	# D1   1日
+QL_ALL			                        = 10000  	# 所有周期
+QL_M1 					        = 10001  	# M1   1分钟
+QL_M3 					        = 10002  	# M3   3分钟
+QL_M5 					        = 10003  	# M5   5分钟
+QL_M10 					        = 10004  	# M10  10分钟
+QL_M15 					        = 10005  	# M15  15分钟
+QL_M30 					        = 10006  	# M30  30分钟
+QL_M60 					        = 10007  	# M60  60分钟
+QL_M120 			                = 10008  	# M120 120分钟
+QL_D1			                        = 10009  	# D1   1日
 
 
 
 # PRICE TYPE
-YT_CLOSE 					= 10010 #c_char('0')	# 收盘价
-YT_OPEN 					= 10011 #c_char('1')	# 开盘价
-YT_HIGH 					= 10012 #c_char('2')	# 最高价
-YT_LOW 					        = 10013 #c_char('3')	# 最低价
+QL_CLOSE 					= 10010 #c_char('0')	# 收盘价
+QL_OPEN 					= 10011 #c_char('1')	# 开盘价
+QL_HIGH 					= 10012 #c_char('2')	# 最高价
+QL_LOW 					        = 10013 #c_char('3')	# 最低价
 
 
