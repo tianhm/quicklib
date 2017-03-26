@@ -14,7 +14,13 @@ class TestMD(object):
 	 
 		self.fGetTestData = self.d2.GetTestData
 		self.fGetTestData.argtypes = [c_char_p, c_char_p, c_char_p, c_int32]
-		self.fGetTestData.restype = c_int32
+		self.fGetTestData.restype = c_bool
+		
+		
+		self.fUnGetTestData = self.d2.UnGetTestData
+		self.fUnGetTestData.argtypes = []
+		self.fUnGetTestData.restype = c_bool		
+		
 
 		self.fConnectServer = self.d2.ConnectServer
 		self.fConnectServer.argtypes = [c_char_p]
@@ -55,9 +61,10 @@ class TestMD(object):
 		return self.fConnectServer(ipaddress)
 	
 	def GetTestData(self, instrumentID, begintime, endtime, priceType):
-		return self.fGetTestData(instrumentID, begintime , endtime , priceType   )
+		return self.fGetTestData(instrumentID, begintime , endtime , priceType)
  
-			
+	def UnGetTestData(self):
+		return self.fUnGetTestData()			
  
 		
 	#获取回调信息数量

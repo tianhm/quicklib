@@ -105,9 +105,10 @@ def OnTick():
         print "AskPrice1 %s"%(str(data[0].AskPrice1))                         #申卖价一
         print "AskVolume1 %s"%(str(data[0].AskVolume1))                       #申卖量一       
         print "AveragePrice %s"%(str(data[0].AveragePrice))                   #当日均价
-        #test.DeleteMD_Tick()
+ 
         
-        
+        if num ==100000:
+            result=test.UnGetTestData()       
 def OnM1():        
     global num
     #新的一笔Tick数据驱动
@@ -380,13 +381,29 @@ def main():
     connectref=test.ConnectServer('127.0.0.1')  #127.0.0.1是本机IP地址，在本机运行收集工具（作为服务器）时使用
     if connectref==True:
         print u'连接历史回播行情服务器成功'
-        test.GetTestData('ag1706','20170201', '20170401', 0)    
+        result = test.GetTestData('ag1706','20170201', '20170401', 0)    
+        if result == True:
+            print u"数据服务器指令[开始重播行情]接收成功"
+        else:
+            print u"数据服务器指令[开始重播行情]接收失败"
     else:
         print u'连接历史回播行情服务器失败'
 
     while(1): 
         print(u"Wait for a New Cmd\n");
         cmddict[test.OnCmd()]()
+        '''   
+        #终止发送行情
+        #if num>100:
+        #    result=test.UnGetTestData()
+                
+            if result == True:
+                print u"数据服务器指令[停止重播行情]接收成功"
+                print u"数据服务器指令[停止重播行情]接收成功"
+            else:
+                print u"数据服务器指令[停止重播行情]接收失败"
+                print u"数据服务器指令[停止重播行情]接收失败" 
+        '''
         print(u"A New cmd\n")     
  
 if __name__ == '__main__':
