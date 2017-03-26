@@ -1528,8 +1528,8 @@ int  GetCmd()
 	//char * newdata = new char[31];
 	//memset
 	//_snprintf_s(&listname, sizeof(listname), sizeof(listname), "%s",cmdlist.begin()->Instrument);
-
-	if (cmdlist.size() > 0)
+	if (!cmdlist.empty())
+	//if  (cmdlist.size() > 0)
 	{
 		//printf("aaaaaaaaaaaaaaaaaaa\n");
 		//临界区
@@ -1541,7 +1541,8 @@ int  GetCmd()
 	   //LeaveCriticalSection(&g_csdata);
 	   //临界区
 	}
-	else if (orderlist.size() > 0)
+	else if (!orderlist.empty())
+	//else if (orderlist.size() > 0)
 	{
 		return TD_ORDER_INFO;
 	}	
@@ -1554,7 +1555,8 @@ int  GetCmd()
 char listcmd[31] = { 0 };
 char *   GetCmdContent2()
 {
-	if (cmdlist.size() <= 0)
+	if (cmdlist.empty())
+	//if (cmdlist.size() <= 0)
 	{
 		return "";
 	}
@@ -1593,7 +1595,8 @@ char *   GetCmdContent2()
 
 void *GetCmdContent()
 {
-	if (cmdlist.size() <= 0)
+	if (cmdlist.empty())
+	//if (cmdlist.size() <= 0)
 	{
 		return NULL;
 	}
@@ -1616,7 +1619,8 @@ void *GetCmdContent()
 CThostFtdcOrderField * orderdata =  new CThostFtdcOrderField;
 void *GetCmdContent_Order()
 {		
-	if(orderlist.size() > 0)
+	if(!orderlist.empty())
+	 //if(orderlist.size() > 0)
 	{
 		memset(orderdata, 0, sizeof(CThostFtdcOrderField));
 		//临界区
@@ -1790,7 +1794,8 @@ void *GetCmdContent_Order()
 CThostFtdcTradeField tradedata;
 void *GetCmdContent_Trade()
 {
-	if (tradelist.size() > 0)
+	if (!tradelist.empty())
+	//if (tradelist.size() > 0)
 	{
 		memset(&tradedata, 0, sizeof(CThostFtdcTradeField));
 		//临界区
@@ -1856,7 +1861,8 @@ void *GetCmdContent_Trade()
 CThostFtdcRspTransferField  banktofuturebyfuturedata;// = new CThostFtdcRspTransferField;
 void *GetCmdContent_BankToFutureByFuture()
 {
-	if (banktofuturebyfuturelist.size() > 0)
+	if (!banktofuturebyfuturelist.empty())
+	//if (banktofuturebyfuturelist.size() > 0)
 	{
 		memset(&banktofuturebyfuturedata, 0, sizeof(CThostFtdcTradeField));
 		//临界区
@@ -1933,7 +1939,8 @@ void *GetCmdContent_BankToFutureByFuture()
 CThostFtdcRspTransferField  futuretobankbyfuturedata;
 void *GetCmdContent_FutureToBankByFuture()
 {
-	if (futuretobankbyfuturelist.size() > 0)
+	if (!futuretobankbyfuturelist.empty())
+	//if (futuretobankbyfuturelist.size() > 0)
 	{
 		memset(&futuretobankbyfuturedata, 0, sizeof(CThostFtdcTradeField));
 		//临界区
@@ -2012,7 +2019,8 @@ void *GetCmdContent_FutureToBankByFuture()
 CThostFtdcQueryMaxOrderVolumeField  querymaxordervolumedata;;
 void *GetCmdContent_QueryMaxOrderVolume()
 {
-	if (querymaxordervolumelist.size() > 0)
+	if (!querymaxordervolumelist.empty())
+	//if (querymaxordervolumelist.size() > 0)
 	{
 		memset(&querymaxordervolumedata, 0, sizeof(CThostFtdcQueryMaxOrderVolumeField));
 		EnterCriticalSection(&g_csdata);
@@ -2040,7 +2048,8 @@ void *GetCmdContent_QueryMaxOrderVolume()
 CThostFtdcSettlementInfoConfirmField settlementdata;// = new CThostFtdcSettlementInfoConfirmField;
 void *GetCmdContent_Settlement()
 {
-	if (settlementlist.size() > 0)
+	if (!settlementlist.empty())
+	//if (settlementlist.size() > 0)
 	{
 		memset(&settlementdata, 0, sizeof(CThostFtdcSettlementInfoConfirmField));
 		//临界区
@@ -2069,7 +2078,8 @@ void *GetCmdContent_Settlement()
 CThostFtdcRspInfoField errdata;// = new  CThostFtdcRspInfoField;
 void *GetCmdContent_Error()
 {
-	if (errorlist.size() > 0)
+	if (!errorlist.empty())
+	//if (errorlist.size() > 0)
 	{
 		memset(&errdata, 0, sizeof(CThostFtdcRspInfoField));
 		//临界区
@@ -2098,7 +2108,8 @@ void *GetCmdContent_Error()
 CThostFtdcRspUserLoginField logindata;// = new CThostFtdcRspUserLoginField;
 void *GetCmdContent_LoginScuess()
 {
-	if (loginlist.size() > 0)
+	if (!loginlist.empty())
+	//if (loginlist.size() > 0)
 	{
 		memset(&logindata, 0, sizeof(CThostFtdcRspUserLoginField));
 		//临界区
@@ -2137,7 +2148,8 @@ void *GetCmdContent_LoginScuess()
 int * connectdata = new int;
 void *GetCmdContent_Connected()
 {
-	if (connectlist.size() > 0)
+	if (!connectlist.empty())
+	//if (connectlist.size() > 0)
 	{
 		memset(connectdata, 0, sizeof(int));
 		//临界区
@@ -2161,7 +2173,8 @@ void *GetCmdContent_Connected()
 CThostFtdcInstrumentMarginRateField * GroupMargindata = new CThostFtdcInstrumentMarginRateField;
 void *GetCmdContent_ProductGroupMargin()
 {
-	if (MarginRatelist.size() > 0)
+	if (!MarginRatelist.empty())
+	//if (MarginRatelist.size() > 0)
 	{
 		memset(GroupMargindata, 0, sizeof(CThostFtdcInstrumentMarginRateField));
 		//临界区
@@ -2204,7 +2217,8 @@ void *GetCmdContent_ProductGroupMargin()
 CThostFtdcInstrumentCommissionRateField * CommissionRatedata = new CThostFtdcInstrumentCommissionRateField;
 void *GetCmdContent_CommissionRate()
 {
-	if (CommissionRatelist.size() > 0)
+	if (!CommissionRatelist.empty())
+	//if (CommissionRatelist.size() > 0)
 	{
 		memset(CommissionRatedata, 0, sizeof(CThostFtdcInstrumentCommissionRateField));
 		//临界区

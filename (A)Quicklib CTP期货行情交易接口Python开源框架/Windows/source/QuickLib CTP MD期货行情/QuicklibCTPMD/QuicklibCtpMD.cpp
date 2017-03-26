@@ -4697,7 +4697,9 @@ char *  GetCmdContent_Tick()
 {
 	//_snprintf_s(ins, sizeof(ins), sizeof(ins), "%s", "ag1706");
 	//return ins;
-	if (ticknamelist.size() > 0)
+
+	if (!ticknamelist.empty())
+	//if  (ticknamelist.size() > 0)
 	{
 		memset(&InstrumentStruct, 0, sizeof(TThostFtdcInstrumentIDTypeStruct));
 		//临界区
@@ -4722,7 +4724,8 @@ char *  GetCmdContent_Tick()
 CThostFtdcRspInfoField Error;
 void *  GetCmdContent_Error()
 {
-	if (errorlist.size() > 0)
+	if (!errorlist.empty())
+	//if (errorlist.size() > 0)
 	{
 		memset(&Error, 0, sizeof(CThostFtdcRspInfoField));
 		//临界区
@@ -4744,7 +4747,8 @@ void *  GetCmdContent_Error()
 CThostFtdcSpecificInstrumentField submarket;
 void *  GetCmdContent_SubMarketData()
 {
-	if (subMarketlist.size() > 0)
+	if (!subMarketlist.empty())
+	//if (subMarketlist.size() > 0)
 	{
 		memset(&submarket, 0, sizeof(CThostFtdcSpecificInstrumentField));
 		//临界区
@@ -4764,7 +4768,8 @@ void *  GetCmdContent_SubMarketData()
 CThostFtdcSpecificInstrumentField unsubmarket;
 void *  GetCmdContent_UnSubMarketData()
 {
-	if (unsubMarketlist.size() > 0)
+	if (!unsubMarketlist.empty())
+	//if (unsubMarketlist.size() > 0)
 	{
 		memset(&unsubmarket, 0, sizeof(CThostFtdcSpecificInstrumentField));
 		//临界区
@@ -4785,7 +4790,8 @@ void *  GetCmdContent_UnSubMarketData()
 CThostFtdcRspUserLoginField  logindata;
 void *GetCmdContent_LoginScuess()
 {
-	if (loginlist.size() > 0)
+	if (!loginlist.empty())
+	//if (loginlist.size() > 0)
 	{
 		memset(&logindata, 0, sizeof(CThostFtdcRspUserLoginField));
 		//临界区
@@ -4829,7 +4835,8 @@ void *GetCmdContent_LoginScuess()
 CThostFtdcRspUserLoginField   logindatafailer;// = new CThostFtdcRspUserLoginField;
 void *GetCmdContent_LoginFailer()
 {
-	if (loginfailelist.size() > 0)
+	if (!loginfailelist.empty())
+	//if (loginfailelist.size() > 0)
 	{
 		memset(&logindata, 0, sizeof(CThostFtdcRspUserLoginField));
 		//临界区
@@ -4872,7 +4879,8 @@ void *GetCmdContent_LoginFailer()
 CThostFtdcUserLogoutField   loginoutdata;// = new CThostFtdcRspUserLoginField;
 void *GetCmdContent_LoginOut()
 {
-	if (loginoutlist.size() > 0)
+	if (!loginoutlist.empty())
+	//if (loginoutlist.size() > 0)
 	{
 		memset(&loginoutdata, 0, sizeof(CThostFtdcUserLogoutField));
 		//临界区
@@ -4896,7 +4904,8 @@ void *GetCmdContent_LoginOut()
 CThostFtdcForQuoteRspField   forquotedata;// = new CThostFtdcRspUserLoginField;
 void *GetCmdContent_Forquote()
 {
-	if (forquotelist.size() > 0)
+	if (!forquotelist.empty())
+	//if (forquotelist.size() > 0)
 	{
 		memset(&forquotedata, 0, sizeof(CThostFtdcForQuoteRspField));
 		//临界区
@@ -4926,7 +4935,8 @@ void *GetCmdContent_Forquote()
 int * connectdata = new int;
 void *GetCmdContent_Connected()
 {
-	if (connectlist.size() > 0)
+	if (!connectlist.empty())
+	//if (connectlist.size() > 0)
 	{
 		memset(connectdata, 0, sizeof(int));
 		//临界区
@@ -5717,7 +5727,9 @@ char listlog[LOG_LENGTH] = { 0 };
 char *   GetLog()
 {
 	EnterCriticalSection(&g_csdata);
-	if (loglist.size() <= 0)
+
+	if (loglist.empty())
+	//if (loglist.size() <= 0)
 	{
 		return "";
 	}
@@ -5780,7 +5792,8 @@ char *   GetLog()
 
 int  GetCmd()
 {
-	if (cmdlist.size() <= 0)
+	if (cmdlist.empty())
+	//if (cmdlist.size() <= 0)
 	{
 		return  SYSTEM_EMPTY;
 	}
@@ -5849,7 +5862,8 @@ int  GetCmd()
 char listcmd[31] = { 0 };
 char *   GetCmdContent()
 {
-	if (cmdlist.size() <= 0)
+	if (cmdlist.empty())
+	//if (cmdlist.size() <= 0)
 	{
 		return "";
 	}
