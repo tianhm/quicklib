@@ -24,7 +24,7 @@ CPU ºÍÄÚ´æÔÚÍ¬Ò»Ê±¼ä¼¯ÖÐ´¦ÀíÒ»¼þÊÂ£¬Í¬Ê±¾¡¿ÉÄÜÈÃºÄÊ±µÄ I/O ²Ù×÷²¢ÐÐÖ´ÐÐ¡£¶ÔÓÚµÍË
 ÐèÒª°ÑÒ»¸öÍêÕûµÄÂß¼­²ð·ÖÎªÒ»¸ö¸öÊÂ¼þ£¬Ôö¼ÓÁË¿ª·¢ºÍµ÷ÊÔÄÑ¶È¡£ 
 
 
-Í¬Ñù²ÉÓÃÒì²½Ê½I/OÊÔ½²Çý¶¯¼Ü¹¹ÊÂ¼þµÄnode.js£¬¸Ã¼¼ÊõÖ÷ÒªÓÃÔÚweb·þÎñÆ÷ÉÏ¡£
+Í¬Ñù²ÉÓÃÒì²½Ê½I/OÇý¶¯¼Ü¹¹ÊÂ¼þµÄnode.js£¬¸Ã¼¼ÊõÖ÷ÒªÓÃÔÚweb·þÎñÆ÷ÉÏ¡£
 ÒÔÏÂÊÇÏêÏ¸¶Ô±ÈÁË Node.js Óë PHP+Nginx ×éºÏ£¬À´ËµÃ÷Òì²½I/OµÄÐÔÄÜµÄÓÅÊÆ£¬
 ½á¹ûÏÔÊ¾ÔÚ3000²¢·¢Á¬½Ó¡¢30ÃëµÄ
 ²âÊÔÏÂ£¬Êä³ö¡°hello world¡±ÇëÇó£º
