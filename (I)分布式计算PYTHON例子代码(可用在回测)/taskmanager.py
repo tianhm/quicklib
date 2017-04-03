@@ -52,7 +52,8 @@ def test():
     QueueManager.register('get_result_queue', callable=return_result_queue)
 
     # 绑定端口5000, 设置验证码'abc':
-    manager = QueueManager(address=('192.168.0.201', 5000), authkey=b'abc')
+    #manager = QueueManager(address=('192.168.0.201', 5000), authkey=b'abc')
+    manager = QueueManager(address=('127.0.0.1', 5000), authkey=b'abc')
     # 启动Queue:
     manager.start()
     # 获得通过网络访问的Queue对象:
