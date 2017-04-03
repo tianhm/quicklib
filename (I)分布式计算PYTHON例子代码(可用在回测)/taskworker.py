@@ -32,7 +32,7 @@ QueueManager.register('get_task_queue')
 QueueManager.register('get_result_queue')
 
 # 连接到服务器，也就是运行taskmanager.py的机器:
-server_addr = '192.168.0.201'
+server_addr = '127.0.0.1'
 print('Connect to server %s...' % server_addr)
 # 端口和验证码注意保持与taskmanager.py设置的完全一致:
 m = QueueManager(address=(server_addr, 5000), authkey='abc')
